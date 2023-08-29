@@ -14,8 +14,8 @@ router.post("/login", validate(schemas.regLogSchema), ctrl.login);
 
 router.post("/logout", authenticate, ctrl.logout);
 
-router.post("/current", authenticate, ctrl.current);
+router.get("/current", authenticate, ctrl.current);
 
-router.patch("/users", authenticate, ctrl.updateSub);
+router.patch("/", authenticate, ctrl.updateSub);
 
 module.exports = router;

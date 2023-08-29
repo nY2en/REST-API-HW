@@ -73,12 +73,8 @@ const updateSub = async (req, res) => {
   const { _id } = req.user;
   const { subscription } = req.body;
 
-  const result = await User.findByIdAndUpdate(
-    _id,
-    { subscription },
-    { new: true }
-  );
-  res.json(result);
+  await User.findByIdAndUpdate(_id, { subscription }, { new: true });
+  res.json({ subscription });
 };
 
 module.exports = {
