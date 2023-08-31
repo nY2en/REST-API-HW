@@ -58,6 +58,11 @@ describe("login user test", () => {
   });
 
   afterAll(async () => {
-    mongoose.disconnect();
+    mongoose
+      .disconnect(DB_HOST_TEST)
+      .then(console.log("Database disconnected successfully"))
+      .catch((error) => {
+        console.log(error);
+      });
   });
 });
