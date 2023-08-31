@@ -56,4 +56,8 @@ describe("login user test", () => {
 
     expect(response.body.token).not.toBe("");
   });
+
+  afterAll(async () => {
+    mongoose.disconnect();
+  });
 });
