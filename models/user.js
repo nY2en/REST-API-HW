@@ -20,6 +20,7 @@ const userSchema = new Schema({
     default: "starter",
   },
   token: String,
+  avatarURL: String,
 });
 
 const regLogSchema = Joi.object({
