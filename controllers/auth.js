@@ -26,20 +26,22 @@ const register = async (req, res) => {
 
   const verificationToken = nanoid();
 
-  const newUser = await User.create({
-    ...req.body,
-    password: hashedPassword,
-    avatarURL,
-    verificationToken,
-  });
-
   const emailOptions = {
     to: email,
     subject: "REGISTRATION VERIFICATION",
     html: `<a href="${BASE_URL}/api/users/verify/${verificationToken}">Verify your email</a>`,
   };
 
-  await sendEmail(emailOptions);
+  await sendEmail(emailOptions).catch((error) => {
+    throw HttpError(error.status, "Something went wrong");
+  });
+
+  const newUser = await User.create({
+    ...req.body,
+    password: hashedPassword,
+    avatarURL,
+    verificationToken,
+  });
 
   res.status(201).json({
     user: {
