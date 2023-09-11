@@ -21,6 +21,14 @@ const userSchema = new Schema({
   },
   token: String,
   avatarURL: String,
+  verify: {
+    type: Boolean,
+    default: false,
+  },
+  verificationToken: {
+    type: String,
+    required: [true, "Verify token is required"],
+  },
 });
 
 const regLogSchema = Joi.object({
@@ -28,7 +36,11 @@ const regLogSchema = Joi.object({
   email: Joi.string().required(),
 });
 
-const schemas = { regLogSchema };
+const verificationEmailSchema = Joi.object({
+  email: Joi.string().required(),
+});
+
+const schemas = { regLogSchema, verificationEmailSchema };
 
 userSchema.post("save", HandleMongooseError);
 
